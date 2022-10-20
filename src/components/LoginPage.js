@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import logoImg from "../assets/logoImg.png";
 
@@ -12,7 +12,9 @@ export default function LoginPage() {
       <InputContainer>
         <input type="text" placeholder="email" />
         <input type="text" placeholder="senha" />
-        <button>Entrar</button>
+        <Link to={`/habitos`}>
+          <button>Entrar</button>
+        </Link>
         <Link to={`/cadastro`}>
           <p>Não tem uma conta? Cadastre-se!</p>
         </Link>

@@ -1,27 +1,26 @@
 import styled from "styled-components";
 
-import NewHabitCard from "./NewHabitCard";
-import HabitCard from "./HabitCard";
+import TodayCard from "./TodayCard";
 import Top from "./Top";
 import Bottom from "./Bottom";
 
-export default function HabitsPage() {
+export default function TodayPage() {
   return (
     <Page>
       <Top />
 
       <Content>
-        <AddHabit>
-          <h2>Meus hábitos</h2>
-          <button>+</button>
-        </AddHabit>
+        <ProgressionTab>
+          <h2>Segunda, 17/05</h2>
+          <p>Nenhum hábito concluído ainda</p>
+        </ProgressionTab>
 
-        <NewHabitCard />
-
-        {/* <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para 
-        começar a trackear!</p> */}
-
-        <HabitCard />
+        <TodayCard />
+        <TodayCard />
+        <TodayCard />
+        <TodayCard />
+        <TodayCard />
+        <TodayCard />
       </Content>
 
       <Bottom />
@@ -42,23 +41,23 @@ const Content = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  background-color: #f2f2f2;
+  background-color: #F2F2F2;
+
   padding: 10px 20px;
   gap: 10px;
-
-  p {
-    color: #666666;
-    font-size: 18px;
-  }
 `;
 
-const AddHabit = styled.div`
+const ProgressionTab = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   font-size: 23px;
   color: #126ba5;
-  margin-bottom: 20px;
+  margin: 20px 0;
+
+  p {
+    font-size: 18px;
+    color: #BABABA;
+  }
 
   button {
     cursor: pointer;
