@@ -62,7 +62,7 @@ const BottomWrapper = styled.div`
   svg {
     position: fixed;
     bottom: 10px;
-    right: 45%;
+    right: calc(50% - 50px);
     cursor: pointer;
     width: 100px;
   }

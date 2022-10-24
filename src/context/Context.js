@@ -55,7 +55,7 @@ export const ContextProvider = ({ children }) => {
       const dones = answer.data.filter((item) => item.done === true).length;
       const result = (dones / total) * 100;
 
-      setPercentage(result);
+      setPercentage(isNaN(result) ? 0 : result);
       setIsLoading(false);
       setToday(answer.data);
     });
