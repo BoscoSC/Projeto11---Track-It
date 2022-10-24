@@ -37,13 +37,13 @@ const Page = styled.div`
 `;
 
 const Content = styled.div`
-  margin: 70px 0;
+  padding: 80px 20px 110px 20px;
+
   display: flex;
   flex: 1;
   flex-direction: column;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
 
-  padding: 10px 20px;
   gap: 10px;
 `;
 
@@ -56,17 +56,6 @@ const ProgressionTab = styled.div`
 
   p {
     font-size: 18px;
-    color: #BABABA;
-  }
-
-  button {
-    cursor: pointer;
-    color: #ffffff;
-    background-color: #52b6ff;
-    width: 40px;
-    height: 40px;
-    border-radius: 4.63636px;
-    text-align: center;
-    font-size: 27px;
+    color: #bababa;
   }
 `;

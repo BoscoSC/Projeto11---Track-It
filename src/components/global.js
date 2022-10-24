@@ -56,6 +56,9 @@ const GlobalStyle = createGlobalStyle`
   body{
     font-family: 'Lexend Deca';
   }
+  html {
+    overflow-y: overlay;
+  }
 `;
 
 export default GlobalStyle;

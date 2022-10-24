@@ -1,19 +1,43 @@
-import { BsTrash } from 'react-icons/bs';
+import { BsTrash } from "react-icons/bs";
 import styled from "styled-components";
+import { useState } from "react";
 
 export default function HabitCard() {
-  return(
+  const week = ["D", "S", "T", "Q", "Q", "S", "S"];
+  const [daysSelected, setDaysSelected] = useState([]);
+
+  function select(day) {
+    setDaysSelected(...daysSelected, day);
+  }
+
+  return (
     <Card>
       <h3>Ler 1 capítulo de livro</h3>
 
       <DaysWrapper>
-        <button>D</button>
-        <button>S</button>
-        <button>T</button>
-        <button>Q</button>
-        <button>Q</button>
-        <button>S</button>
-        <button>S</button>
+        {week.map((item, index) => {
+          return (
+            <>
+              {(daysSelected.length > 1) ? (
+                <button
+                  key={index}
+                  onClick={select}
+                  style={{ background: "#CFCFCF", color: "#ffffff" }}
+                >
+                  {item}
+                </button>
+              ) : (
+                <button
+                  key={index}
+                  onClick={select}
+                  style={{ background: "#ffffff", color: "#dbdbdb" }}
+                >
+                  {item}
+                </button>
+              )}
+            </>
+          );
+        })}
       </DaysWrapper>
 
       <BsTrash />
@@ -54,6 +78,6 @@ const DaysWrapper = styled.div`
     border: 1px solid #d5d5d5;
     border-radius: 5px;
     text-align: center;
-    color: #DBDBDB;
+    color: #dbdbdb;
   }
 `;

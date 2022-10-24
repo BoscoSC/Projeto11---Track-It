@@ -22,6 +22,9 @@ export default function HabitsPage() {
         começar a trackear!</p> */}
 
         <HabitCard />
+        <HabitCard />
+        <HabitCard />
+
       </Content>
 
       <Bottom />
@@ -38,12 +41,11 @@ const Page = styled.div`
 `;
 
 const Content = styled.div`
-  margin: 70px 0;
+  padding: 80px 20px 110px 20px;
   display: flex;
   flex: 1;
   flex-direction: column;
   background-color: #f2f2f2;
-  padding: 10px 20px;
   gap: 10px;
 
   p {

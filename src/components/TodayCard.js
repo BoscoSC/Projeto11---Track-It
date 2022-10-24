@@ -1,7 +1,14 @@
 import { BsFillCheckSquareFill } from "react-icons/bs";
 import styled from "styled-components";
+import { useState } from "react";
 
 export default function HabitCard() {
+  const [done, setDone] = useState(false);
+
+  function markAsDone() {
+    setDone(!done);
+  }
+
   return (
     <Card>
       <h3>Ler 1 capítulo de livro</h3>
@@ -10,7 +17,17 @@ export default function HabitCard() {
         Seu recorde: 5 dias
       </p>
 
-      <BsFillCheckSquareFill />
+      {done ? (
+        <BsFillCheckSquareFill
+          onClick={markAsDone}
+          style={{ color: "#8FC549" }}
+        />
+      ) : (
+        <BsFillCheckSquareFill
+          onClick={markAsDone}
+          style={{ color: "#ebebeb" }}
+        />
+      )}
     </Card>
   );
 }
@@ -40,7 +57,5 @@ const Card = styled.div`
     position: absolute;
     top: 10px;
     right: 10px;
-    color: #ebebeb;
-    /* color: #8FC549; */
   }
 `;

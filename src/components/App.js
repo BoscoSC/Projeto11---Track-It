@@ -5,6 +5,7 @@ import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
 import HabitsPage from "./HabitsPage";
 import TodayPage from "./TodayPage";
+import HistoricPage from "./HistoricPage";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/cadastro" element={<RegisterPage />} />
         <Route path="/habitos" element={<HabitsPage />} />
         <Route path="/hoje" element={<TodayPage />} />
+        <Route path="/historico" element={<HistoricPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,23 +1,101 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import logoImg from "../assets/logoImg.png";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function RegisterPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [img, setImg] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const navigateToLogin = () => {
+    navigate("/");
+  };
+
+  function registerUser(event) {
+    event.preventDefault();
+    setLoading(true);
+
+    const URL =
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
+    const body = {
+      email: email,
+      name: name,
+      image: img,
+      password: password,
+    };
+
+    const promise = axios.post(URL, body);
+
+    promise.then(() => {
+      setLoading(false);
+      alert("register success");
+      navigateToLogin();
+    });
+
+    setLoading(false);
+  }
   return (
     <LoginContainer>
       <LogoContainer>
         <img src={logoImg} alt="" />
       </LogoContainer>
 
-      <InputContainer>
-        <input type="text" placeholder="email" />
-        <input type="text" placeholder="senha" />
-        <input type="text" placeholder="nome" />
-        <input type="text" placeholder="foto" />
-        <button>Cadastrar</button>
-        <Link to={`/`}>
-          <p>Já tem uma conta? Faça login!</p>
-        </Link>
+      <InputContainer disabled={loading}>
+        <form onSubmit={registerUser}>
+          <input
+            required
+            disabled={loading}
+            type="email"
+            placeholder="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            required
+            disabled={loading}
+            type="password"
+            placeholder="senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            required
+            disabled={loading}
+            type="text"
+            placeholder="nome"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            required
+            disabled={loading}
+            type="url"
+            placeholder="foto"
+            value={img}
+            onChange={(e) => setImg(e.target.value)}
+          />
+          <button disabled={loading} type="submit">
+            {loading ? (
+              <ThreeDots
+                color="#ffffff"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName=""
+                visible={true}
+              />
+            ) : (
+              "Cadastrar"
+            )}
+          </button>
+        </form>
+
+        <p onClick={navigateToLogin}>Já tem uma conta? Faça login!</p>
       </InputContainer>
     </LoginContainer>
   );
@@ -45,11 +123,11 @@ const InputContainer = styled.div`
   width: 100%;
 
   input {
-    color: #666666;
+    color: ${(props) => (props.disabled ? "#AFAFAF" : "#666666")};
+    background: ${(props) => (props.disabled ? "#F2F2F2" : "#ffffff")};
     width: 100%;
     height: 45px;
     font-size: 21px;
-    background: #ffffff;
     border: 1px solid #d5d5d5;
     border-radius: 5px;
     margin-bottom: 8px;

@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import Hoje from "../assets/Hoje.png";
 import { useNavigate } from "react-router-dom";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
 export default function Bottom() {
   const navigate = useNavigate();
+  const percentage = 66;
 
   const navigateToToday = () => {
     navigate("/hoje");
@@ -13,13 +14,29 @@ export default function Bottom() {
     navigate("/habitos");
   };
 
+  const navigateToHistoric = () => {
+    navigate("/historico");
+  };
+
   return (
     <BottomWrapper>
       <p onClick={navigateToHabits}>Hábitos</p>
-      <div>
-        <img src={Hoje} alt="Hoje" onClick={navigateToToday} />
+      {/* <img src={Hoje} alt="Hoje" onClick={navigateToToday} /> */}
+      <div onClick={navigateToToday}>
+        <CircularProgressbar
+          value={percentage}
+          text={`${percentage}%`}
+          background
+          backgroundPadding={6}
+          styles={buildStyles({
+            backgroundColor: "#3e98c7",
+            textColor: "#fff",
+            pathColor: "#fff",
+            trailColor: "transparent",
+          })}
+        />
       </div>
-      <p>Histórico</p>
+      <p onClick={navigateToHistoric}>Histórico</p>
     </BottomWrapper>
   );
 }
@@ -34,7 +51,6 @@ const BottomWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 18px;
-  text-align: center;
   color: #52b6ff;
   padding: 25px 35px;
 
@@ -42,14 +58,11 @@ const BottomWrapper = styled.div`
     cursor: pointer;
   }
 
-  div {
-    width: 30%;
+  svg {
     position: fixed;
     bottom: 10px;
-    right: 35%;
-
-    img {
-      cursor: pointer;
-    }
+    right: 45%;
+    cursor: pointer;
+    width: 100px;
   }
 `;
