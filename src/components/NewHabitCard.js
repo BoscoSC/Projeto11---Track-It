@@ -8,7 +8,7 @@ export default function NewHabitCard() {
   const week = ["D", "S", "T", "Q", "Q", "S", "S"];
   const [days, setDays] = useState([]);
   const [nameNewTask, setNameNewTask] = useState("");
-  const { token, setCardAddOpen, loadHabits } = useApp();
+  const { token, setCardAddOpen, loadHabits, loadToday } = useApp();
   const [loading, setLoading] = useState(false);
 
   function addDay(index) {
@@ -46,6 +46,7 @@ export default function NewHabitCard() {
     promise.then(() => {
       setLoading(false);
       loadHabits();
+      loadToday();
       closeCard();
     });
 

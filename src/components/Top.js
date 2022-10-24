@@ -4,7 +4,6 @@ import useApp from "../context/useApp";
 
 export default function Top() {
   const { image } = useApp();
-  console.log(image);
 
   return (
     <TopWrapper>

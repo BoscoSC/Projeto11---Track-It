@@ -36,7 +36,6 @@ export default function LoginPage() {
 
     promise.then((answer) => {
       setLoading(false);
-      console.log(answer.data);
       setToken(answer.data.token);
       setName(answer.data.name);
       setImage(answer.data.image);

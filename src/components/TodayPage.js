@@ -38,7 +38,7 @@ export default function TodayPage() {
           {percentage === 0 ? (
             <Text>Nenhum hábito concluído ainda</Text>
           ) : (
-            <Text isGreen>{percentage}% dos hábitos concluídos</Text>
+            <Text isGreen>{percentage.toFixed(2)}% dos hábitos concluídos</Text>
           )}
         </ProgressionTab>
 

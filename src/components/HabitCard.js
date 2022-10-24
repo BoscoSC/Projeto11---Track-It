@@ -2,10 +2,31 @@ import { BsTrash } from "react-icons/bs";
 import styled from "styled-components";
 import axios from "axios";
 import useApp from "../context/useApp";
+import { useState } from "react";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  borderRadius: "10px",
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function HabitCard({ id, name, days }) {
   const week = ["D", "S", "T", "Q", "Q", "S", "S"];
-  const { token, loadHabits } = useApp();
+  const [open, setOpen] = useState(false);
+
+  const { token, loadHabits, loadToday } = useApp();
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   function deleteCard() {
     const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`;
@@ -19,11 +40,14 @@ export default function HabitCard({ id, name, days }) {
 
     promise.then(() => {
       loadHabits();
+      loadToday();
     });
 
     promise.catch((error) => {
       alert(error.response.data.message);
     });
+
+    handleClose();
   }
 
   return (
@@ -36,7 +60,23 @@ export default function HabitCard({ id, name, days }) {
           </Days>
         ))}
       </DaysWrapper>
-      <BsTrash onClick={deleteCard} />
+      <BsTrash onClick={handleOpen} />
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Deseja excluir este hábito?
+          </Typography>
+          <WrapperButtons>
+            <Cancel onClick={handleClose}>Não</Cancel>
+            <Confirm onClick={deleteCard}>Sim</Confirm>
+          </WrapperButtons>
+        </Box>
+      </Modal>
     </Card>
   );
 }
@@ -83,4 +123,36 @@ const DaysWrapper = styled.div`
 const Days = styled.div`
   color: ${(props) => (props.selected ? "#ffffff" : "#dbdbdb")};
   background: ${(props) => (props.selected ? "#CFCFCF" : "#ffffff")};
+`;
+
+const WrapperButtons = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 16px;
+`;
+
+const Cancel = styled.button`
+  cursor: pointer;
+  font-size: 16px;
+  background: #ffffff;
+  border-radius: 4.63636px;
+  padding: 10px 15px;
+  color: #52b6ff;
+  margin-right: 10px;
+  height: 25px;
+`;
+
+const Confirm = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 16px;
+  background: #52b6ff;
+  border-radius: 4.63636px;
+  padding: 10px 15px;
+  height: 15px;
 `;

@@ -33,7 +33,7 @@ export const ContextProvider = ({ children }) => {
 
     promise.catch((error) => {
       setIsLoading(false);
-      console.log(error.response.data);
+      alert(error.response.data);
     });
   }
 
@@ -54,10 +54,6 @@ export const ContextProvider = ({ children }) => {
       const total = answer.data.length;
       const dones = answer.data.filter((item) => item.done === true).length;
       const result = (dones / total) * 100;
-
-      console.log("Total: ", total);
-      console.log("Dones: ", dones);
-      console.log("Result: ", result);
 
       setPercentage(result);
       setIsLoading(false);
