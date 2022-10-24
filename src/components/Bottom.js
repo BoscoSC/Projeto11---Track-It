@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import useApp from "../context/useApp";
 
 export default function Bottom() {
   const navigate = useNavigate();
-  const percentage = 66;
+  const { percentage } = useApp();
 
   const navigateToToday = () => {
     navigate("/hoje");
@@ -21,11 +23,10 @@ export default function Bottom() {
   return (
     <BottomWrapper>
       <p onClick={navigateToHabits}>Hábitos</p>
-      {/* <img src={Hoje} alt="Hoje" onClick={navigateToToday} /> */}
       <div onClick={navigateToToday}>
         <CircularProgressbar
           value={percentage}
-          text={`${percentage}%`}
+          text="Hoje"
           background
           backgroundPadding={6}
           styles={buildStyles({

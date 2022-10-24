@@ -1,11 +1,23 @@
 import styled from "styled-components";
-
 import NewHabitCard from "./NewHabitCard";
 import HabitCard from "./HabitCard";
 import Top from "./Top";
 import Bottom from "./Bottom";
+import useApp from "../context/useApp";
+import { useEffect } from "react";
 
 export default function HabitsPage() {
+  const { habits, setCardAddOpen, cardAddOpen, loadHabits, isLoading } =
+    useApp();
+
+  useEffect(() => {
+    loadHabits();
+  }, []);
+
+  function openCardNewHabit() {
+    setCardAddOpen(true);
+  }
+
   return (
     <Page>
       <Top />
@@ -13,18 +25,26 @@ export default function HabitsPage() {
       <Content>
         <AddHabit>
           <h2>Meus hábitos</h2>
-          <button>+</button>
+          <button onClick={openCardNewHabit}>+</button>
         </AddHabit>
 
-        <NewHabitCard />
+        {cardAddOpen && <NewHabitCard />}
 
-        {/* <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para 
-        começar a trackear!</p> */}
-
-        <HabitCard />
-        <HabitCard />
-        <HabitCard />
-
+        {habits.length === 0 && !isLoading ? (
+          <p>
+            Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
+            começar a trackear!
+          </p>
+        ) : (
+          habits.map((item) => (
+            <HabitCard
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              days={item.days}
+            />
+          ))
+        )}
       </Content>
 
       <Bottom />

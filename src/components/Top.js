@@ -1,12 +1,15 @@
 import logo from "../assets/logo.png";
-import userImg from "../assets/userImg.png";
 import styled from "styled-components";
+import useApp from "../context/useApp";
 
 export default function Top() {
+  const { image } = useApp();
+  console.log(image);
+
   return (
     <TopWrapper>
       <img src={logo} alt="" />
-      <img src={userImg} alt="" />
+      <ProfileImg src={image} alt="" />
     </TopWrapper>
   );
 }
@@ -24,4 +27,10 @@ const TopWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
+`;
+
+const ProfileImg = styled.img`
+  width: 51px;
+  height: 51px;
+  border-radius: 50%;
 `;

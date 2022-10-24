@@ -1,16 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { useState, useEffect } from "react";
 import styled from "styled-components";
 import logoImg from "../assets/logoImg.png";
 import { ThreeDots } from "react-loader-spinner";
 import { useState } from "react";
+import useApp from "../context/useApp";
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { setToken, setImage, setName } = useApp();
 
   const navigateToToday = () => {
     navigate("/hoje");
@@ -30,19 +31,21 @@ export default function LoginPage() {
       email: email,
       password: password,
     };
-    // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjY2NywiaWF0IjoxNjY2NTk3NjUzfQ.ZU4UX-jp6EezXM5LfzsHdVfmJg1Xaa6PCxxSgfHmb1I
 
     const promise = axios.post(URL, body);
 
     promise.then((answer) => {
       setLoading(false);
       console.log(answer.data);
-      // navigateToToday();
+      setToken(answer.data.token);
+      setName(answer.data.name);
+      setImage(answer.data.image);
+      navigateToToday();
     });
 
     promise.catch((error) => {
       setLoading(false);
-      alert(error.response.data.mensagem);
+      alert(error.response.data.message);
     });
   }
 
@@ -57,7 +60,7 @@ export default function LoginPage() {
           <input
             required
             disabled={loading}
-            type="email  "
+            type="email"
             placeholder="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -140,10 +143,12 @@ const InputContainer = styled.div`
     justify-content: center;
     align-items: center;
     margin-bottom: 8px;
+    cursor: pointer;
   }
 
   p {
     text-decoration-line: underline;
     color: #52b6ff;
+    cursor: pointer;
   }
 `;

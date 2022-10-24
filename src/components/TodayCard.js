@@ -1,25 +1,70 @@
 import { BsFillCheckSquareFill } from "react-icons/bs";
 import styled from "styled-components";
-import { useState } from "react";
+import useApp from "../context/useApp";
+import axios from "axios";
 
-export default function HabitCard() {
-  const [done, setDone] = useState(false);
+export default function HabitCard({
+  id,
+  name,
+  done,
+  currentSequence,
+  highestSequence,
+}) {
+  const { token, loadToday } = useApp();
 
   function markAsDone() {
-    setDone(!done);
+    const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const promise = axios.post(URL, {}, config);
+
+    promise.then(() => {
+      loadToday();
+    });
+
+    promise.catch((error) => {
+      alert(error.response.data.message);
+    });
+  }
+
+  function markAsNotDone() {
+    const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const promise = axios.post(URL, {}, config);
+
+    promise.then(() => {
+      loadToday();
+    });
+
+    promise.catch((error) => {
+      alert(error.response.data.message);
+    });
   }
 
   return (
     <Card>
-      <h3>Ler 1 capítulo de livro</h3>
+      <h3>{name}</h3>
       <p>
-        Sequência atual: 3 dias <br />
-        Seu recorde: 5 dias
+        Sequência atual:{" "}
+        <Quantity isDone={done}>{currentSequence} dias</Quantity> <br />
+        Seu recorde:{" "}
+        <Quantity isDone={done && currentSequence === highestSequence}>
+          {highestSequence} dias
+        </Quantity>
       </p>
 
       {done ? (
         <BsFillCheckSquareFill
-          onClick={markAsDone}
+          onClick={markAsNotDone}
           style={{ color: "#8FC549" }}
         />
       ) : (
@@ -58,4 +103,8 @@ const Card = styled.div`
     top: 10px;
     right: 10px;
   }
+`;
+
+const Quantity = styled.span`
+  ${(props) => props.isDone && `color: #8FC549`}
 `;

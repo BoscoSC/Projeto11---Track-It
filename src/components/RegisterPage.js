@@ -38,6 +38,8 @@ export default function RegisterPage() {
       navigateToLogin();
     });
 
+    promise.catch((error) => alert(error.response.data.message));
+
     setLoading(false);
   }
   return (
@@ -150,10 +152,12 @@ const InputContainer = styled.div`
     justify-content: center;
     align-items: center;
     margin-bottom: 8px;
+    cursor: pointer;
   }
 
   p {
     text-decoration-line: underline;
     color: #52b6ff;
+    cursor: pointer;
   }
 `;
